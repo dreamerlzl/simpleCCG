@@ -36,7 +36,7 @@ To parse the generated predictions (the parse input path is specified in `config
     cd Parser
     mvn compile
 
-then get back to the root dir, and type
+then get back to the root dir, and type (you may need to `chmod a+x parse` to grant permission first)
 
     ./parse 
 

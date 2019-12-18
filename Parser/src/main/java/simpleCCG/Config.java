@@ -30,7 +30,7 @@ public class Config {
 					continue;
 				String key = pair[0].trim(), value = pair[1].trim();
 //				System.out.println(key);
-				if(key.contentEquals("predict_output"))
+				if(key.contentEquals("parse_input"))
 				{
 					parseInput = value;
 				}

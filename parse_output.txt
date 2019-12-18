@@ -1,16 +1,16 @@
 <=========== start of sentence 1 ===========>
 {S
-  {(S/(S\NP)) silences}
+  {NP silences}
   {(S\NP)
     {(S\NP)
       {(S[dcl]\NP)
         {((S[dcl]\NP)/(S[adj]\NP)) were}
         {(S[adj]\NP) lengthy}}
       {(S\S)
-        {((S\S)/S[dcl]) --}
-        {S
-          {(S/(S\NP)) nobody}
-          {(S[dcl]\NP) moved}}}}
+        {((S\S)/(S\NP))
+          {((S\S)/S[dcl]) --}
+          {(S/(S\NP)) nobody}}
+        {(S[dcl]\NP) moved}}}
     {(S[dcl]\NP)
       {conj or}
       {(S[dcl]\NP) gestured}}}}
@@ -18,27 +18,27 @@
 <=========== start of sentence 2 ===========>
 {S
   {S
-    {NP nobody}
+    {(S/(S\NP)) nobody}
     {(S\NP)
       {(S[dcl]\NP) smiled}
       {((S\NP)\(S\NP)) onstage}}}
   {S[conj]
     {, ,}
     {S
-      {(S/(S[pss]\NP))
-        {(S/(S\NP))
-          {conj and}
+      {(S/(S[to]\NP))
+        {(S/(S[pss]\NP))
           {(S/(S\NP))
-            {NP nobody}
-            {(NP\NP)
-              {((NP\NP)/NP) in}
-              {NP
-                {(NP/N) the}
-                {N audience}}}}}
-        {((S[dcl]\NP)/(S[pss]\NP)) was}}
-      {(S[pss]\NP)
-        {((S[pss]\NP)/(S[b]\NP))
-          {((S[pss]\NP)/(S[to]\NP)) encouraged}
-          {((S[to]\NP)/(S[b]\NP)) to}}
+            {conj and}
+            {(S/(S\NP))
+              {NP nobody}
+              {(NP\NP)
+                {((NP\NP)/NP) in}
+                {NP
+                  {(NP/N) the}
+                  {N audience}}}}}
+          {((S[dcl]\NP)/(S[pss]\NP)) was}}
+        {((S[pss]\NP)/(S[to]\NP)) encouraged}}
+      {(S[to]\NP)
+        {((S[to]\NP)/(S[b]\NP)) to}
         {(S[b]\NP) laugh}}}}}
 <=========== end of sentence 2 ===========>

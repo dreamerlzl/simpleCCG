@@ -1,1 +1,3 @@
+cd Parser
 mvn exec:java -Dexec.mainClass=simpleCCG.Parse -e
+cd ..
