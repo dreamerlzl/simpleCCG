@@ -13,7 +13,7 @@ public class Config {
 	public static String tag_split = "\t";
 	public static String parseInput = "";
 	public static String parseOutput = "";
-	public static String configInput = "/Users/lin/Documents/linguistics/LIN424/project/simpleCCG/config.yaml";
+	public static String configInput = "../config.yaml";
 	public static String treeIndent = "  ";
 	
 	public static void main(String[]args) throws IOException
