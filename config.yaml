@@ -1,0 +1,38 @@
+method: bert
+device: 0 # gpu device number
+ccgbank_auto_start_index: 1
+ccgbank_auto_end_index: 1
+total_path: ./data/total.txt
+train_path: ./data/train.txt
+val_path: ./data/val.txt
+test_path: ./data/test.txt
+tag_path: ./data/cat_vocab.txt
+model_path: /content/gdrive/My Drive/colab/simpleCCG/suppertagger/models # for saving the model
+# model_path: ./suppertagger/models
+random_train_val: False
+topk_predict: 2
+predict_input: /content/gdrive/My Drive/colab/simpleCCG/predict_input.txt
+# predict_output: /content/gdrive/My Drive/colab/simpleCCG/predict_output.txt
+predict_output: /Users/lin/Documents/linguistics/LIN424/project/simpleCCG/predict_output.txt
+train_ratio: 0.9
+test_ratio: 0.05
+batch_size: 128
+validate_batch_size: 256
+lr: 2e-3
+weight_decay: 1e-2
+epoch_num: 20
+vocab_size: -1
+num_cat: 1362
+embed_dim: 768
+rnn_layers: 2
+hidden_size: 128
+test_model: bert_bilstm_2e-3_Adam_10.pt
+elmo_options_file: ./suppertagger/ELMo/elmo_2x1024_128_2048cnn_1xhighway_options.json
+elmo_weights_file: ./suppertagger/ELMo/elmo_2x1024_128_2048cnn_1xhighway_weights.hdf5
+glove_path: ./suppertagger/GloVe/glove_300d.npy
+word2id_path: ./suppertagger/GloVe/word2id.npy
+id2word_path: ./suppertagger/GloVe/word2id.npy
+bert_shortcut: bert-base-uncased
+# path relative to Parser
+parse_input: ../predict_output.txt
+parse_output: ../parse_output.txt
