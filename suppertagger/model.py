@@ -78,9 +78,12 @@ class BiLSTM(nn.Module):
                 # print(token_embeddings)
                 return [group_embeddings(g, te) for g, te 
                     in zip(grouping_list, token_embeddings)]
-            except RuntimeError:
-                print('\n'.join([' '.join(s) for s in sentences]))
+            except RuntimeError as e:
+                print(e)
+                # print('\n'.join([' '.join(s) for s in sentences]))
                 print(idx_tensors)
+                import sys
+                sys.exit(0)
         
 
     def init_glove(self):

@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import yaml
 import sys
+from math import ceil
 from typing import Dict, List
 from torch.utils.data import DataLoader
 from suppertagger.model import BiLSTM, group_embeddings
@@ -47,28 +48,34 @@ def predict(config, sentences: List[List[str]]):
     id2cat = get_id2cat(config)
     topk = config['topk_predict']
     if config['method'] == 'bert':
-        # deal with the punctuation first
-        processed_sentences, punct_positions = [], []
-        for s in sentences:
-            processed_sentence, punct_pos = process_punct(s)
-            processed_sentences.append(processed_sentence)
-            punct_positions.append(punct_pos)
-        output, each_len = model(processed_sentences)
-        sort, indices = torch.sort(output, dim=1, descending=True)
-        word2cat = indices[:, :topk]
-        m = nn.LogSoftmax(dim=1)
-        weight = -1 * m(sort)[:, :topk] 
         with open(config['predict_output'], 'w') as f:
-            k = 0
-            split_symbol = ' ' 
-            for i, l in enumerate(each_len):
-                f.write('\n'.join([f'{processed_sentences[i][j]}\t' + 
-                    '\t'.join([f'{id2cat[index]}{split_symbol}{w}' 
-                    for index, w in zip(word2cat[k+j].tolist(), weight[k+j].tolist())])
-                    if j not in punct_positions[i] 
-                    else f'{punct_positions[i][j]}\t{punct_positions[i][j]}{split_symbol}0.0'
-                    for j in range(l)]) + '\n\n')
-                k += l
+            batch_size = int(config['batch_size'])
+            batch_num = ceil(len(sentences)/batch_size)
+            for batch_count in range(batch_num):
+                batch = sentences[batch_count*batch_size:(batch_count+1)*batch_size]
+                
+                # deal with the punctuation first
+                processed_sentences, punct_positions = [], []
+                for s in batch:
+                    processed_sentence, punct_pos = process_punct(s)
+                    processed_sentences.append(processed_sentence)
+                    punct_positions.append(punct_pos)
+
+                output, each_len = model(processed_sentences)
+                sort, indices = torch.sort(output, dim=1, descending=True)
+                word2cat = indices[:, :topk]
+                m = nn.LogSoftmax(dim=1)
+                weight = -1 * m(sort)[:, :topk] 
+                k = 0
+                split_symbol = ' ' 
+                for i, l in enumerate(each_len):
+                    f.write('\n'.join([f'{processed_sentences[i][j]}\t' + 
+                        '\t'.join([f'{id2cat[index]}{split_symbol}{w}' 
+                        for index, w in zip(word2cat[k+j].tolist(), weight[k+j].tolist())])
+                        if j not in punct_positions[i] 
+                        else f'{punct_positions[i][j]}\t{punct_positions[i][j]}{split_symbol}0.0'
+                        for j in range(l)]) + '\n\n')
+                    k += l
             print('prediction finished.')
 
 
