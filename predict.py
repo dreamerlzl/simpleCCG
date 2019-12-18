@@ -17,7 +17,7 @@ def load_model(config: Dict):
     model.bert_model.eval()
     return model
 
-def load_data(config: Dict):
+def load_test_data(config: Dict):
     test_path = config['test_path']
     cat2id = get_cat2id(config)
     x_test, y_test = load_data(test_path, cat2id)
@@ -26,7 +26,7 @@ def load_data(config: Dict):
     return test_loader
 
 def test(config: Dict):
-    data = load_data(config)
+    data = load_test_data(config)
     model = load_model(config)
     total_num = 0
     total_correct = 0
@@ -102,8 +102,14 @@ def process_punct(sentence: List[str]):
 if __name__ == "__main__":
     with open('./config.yaml') as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
-        with open(config['predict_input'], 'r') as infile:
-            test_sentences = [line.strip().split(' ') for line in infile.readlines() if line.strip()]
-        # test_sentences = ['silences were lengthy -- nobody moved or gestured'.split(' '), 
-        # 'nobody smiled onstage , and nobody in the audience was encouraged to laugh'.split(' ')]
-            predict(config, test_sentences)
+        if len(sys.argv) > 1:
+            option = sys.argv[1]
+            if option == 'test':
+                test(config)
+            else:
+                print(f'unknown option: {option}')
+                sys.exit(0)
+        else:
+            with open(config['predict_input'], 'r') as infile:
+                test_sentences = [line.strip().split(' ') for line in infile.readlines() if line.strip()]
+                predict(config, test_sentences)

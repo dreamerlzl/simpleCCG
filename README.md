@@ -1,6 +1,9 @@
 ## Content
 This project consists of a neural suppertagger and a A* parser(implementing [https://pdfs.semanticscholar.org/d4e8/7e2e64da8d72a9dc91a16a60e7fdaf28f00e.pdf](https://pdfs.semanticscholar.org/d4e8/7e2e64da8d72a9dc91a16a60e7fdaf28f00e.pdf)) for Combinatory Categorical Grammar(CCG).
 
+## Suppertagging Accurarcy
+Using the current setting in `config.yaml`, the accuracy on train set is `95%` and that on test set is `93%`. 
+
 ## Dependency
 - Python 3.7
     - `torch`, `torchvision`
@@ -17,7 +20,7 @@ All the arguments and parameters are specified in `config.yaml`. To train the mo
 
 To test the model (with the default test set path `./data/test.txt`), type
 
-    python3 test.py
+    python3 predict.py test
 
 To make predictions (CCG tags for new sentences; the predict input path is specified in `config.yaml`), type
 
@@ -32,3 +35,13 @@ then get back to the root dir, and type
 
     ./parse 
 
+## Details
+- Currently, the tagging and parsing are separate. 
+- The suppertagging has already taken care of all the common punctuations.
+- The CCG parsing is divided into the following modules:
+    - `CCGCategory`: a class for the tags in CCG. Handling comparision and parsing of tags. 
+    - `CCGRule`: encode the CCG rules used in the parsing. Here I include the rules used in the aforementioned paper plus some additional ones.
+    - `Agent`: Actually a wrap of priority queue here, sorted by the f-cost of each search state in the A* searching.
+    - `AgentEntry`: entries in the agent, representing states.
+    - `Parse`: The actual parse algorithm.  
+    - `Config`: for reading the configuration file.  
