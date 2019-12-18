@@ -2,7 +2,12 @@
 This project consists of a neural suppertagger and a A* parser(implementing [https://pdfs.semanticscholar.org/d4e8/7e2e64da8d72a9dc91a16a60e7fdaf28f00e.pdf](https://pdfs.semanticscholar.org/d4e8/7e2e64da8d72a9dc91a16a60e7fdaf28f00e.pdf)) for Combinatory Categorical Grammar(CCG).
 
 ## Suppertagging Accurarcy
-Using the current setting in `config.yaml`, the accuracy on train set is `95%` and that on test set is `93%`. 
+Using the current setting in `config.yaml` (but actually I don't fine-tune it very well, there could be better performance), the accuracy on train set is `95%` and that on test set is `93%`. 
+
+This model can be downloaded on(too large to put on github):
+[https://drive.google.com/file/d/1z9yp7DqKUkKMf3upQu_iNphevUM89Q4V/view?usp=sharing](https://drive.google.com/file/d/1z9yp7DqKUkKMf3upQu_iNphevUM89Q4V/view?usp=sharing)
+
+If the link fails, please contact zlin25@ur.rochester.edu.
 
 ## Dependency
 - Python 3.7
@@ -34,6 +39,8 @@ To parse the generated predictions (the parse input path is specified in `config
 then get back to the root dir, and type
 
     ./parse 
+
+`predict_input` is an example with the expected format, `predict_output` is the corresponding output, and `parse_output` is the corresponding parse output.
 
 ## Details
 - Currently, the tagging and parsing are separate. 

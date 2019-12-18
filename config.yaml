@@ -7,13 +7,11 @@ train_path: ./data/train.txt
 val_path: ./data/val.txt
 test_path: ./data/test.txt
 tag_path: ./data/cat_vocab.txt
-model_path: /content/gdrive/My Drive/colab/simpleCCG/suppertagger/models # for saving the model
-# model_path: ./suppertagger/models
+model_path: ./suppertagger/models
 random_train_val: False
 topk_predict: 2
-predict_input: /content/gdrive/My Drive/colab/simpleCCG/predict_input.txt
-# predict_output: /content/gdrive/My Drive/colab/simpleCCG/predict_output.txt
-predict_output: /Users/lin/Documents/linguistics/LIN424/project/simpleCCG/predict_output.txt
+predict_input: ./predict_input.txt
+predict_output: ./predict_output.txt
 train_ratio: 0.9
 test_ratio: 0.05
 batch_size: 128
