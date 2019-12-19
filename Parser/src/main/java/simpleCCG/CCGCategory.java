@@ -1,5 +1,6 @@
 package simpleCCG;
 
+import java.util.Objects;
 import java.util.Stack;
 
 public class CCGCategory {
@@ -65,6 +66,16 @@ public class CCGCategory {
     		arity = x.arity ;
     		carriedFeature = "";
     		feature = f;
+    }
+    
+    @Override
+    public int hashCode()
+    {
+    		if(isAtomic)
+    			return Objects.hash(atomCategory);
+    		else{
+    			return Objects.hash(value.hashCode() , direction, argument.hashCode());
+    		}
     }
     
     public String toString()

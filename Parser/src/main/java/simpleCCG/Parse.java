@@ -108,14 +108,15 @@ public class Parse {
 		while(!agent.isEmpty())
 		{
 			top = agent.pop();
-//			System.out.println(top);
+//			System.out.println("considering: " + top);
 			if(top.weight > completeWeight)
 				break;
 			if(isCompleteParse(top, sentenceLen))
 			{
-				// retrieve all the parses with the same tag sequence
-				completeWeight = top.weight;
 				completeParse.add(top);
+				break;
+				// retrieve all the parses with the same tag sequence
+//				completeWeight = top.weight;
 			}
 			
 			int start = top.start, end = top.end;

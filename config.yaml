@@ -9,7 +9,8 @@ test_path: ./data/test.txt
 tag_path: ./data/cat_vocab.txt
 model_path: ./suppertagger/models
 random_train_val: False
-topk_predict: 2
+topk_predict: 5
+tag_prob_threshold: 1e-5
 predict_input: ./predict_input.txt
 predict_output: ./predict_output.txt
 train_ratio: 0.9
@@ -32,5 +33,5 @@ word2id_path: ./suppertagger/GloVe/word2id.npy
 id2word_path: ./suppertagger/GloVe/word2id.npy
 bert_shortcut: bert-base-uncased
 # path relative to Parser
-parse_input: ../predict_output.txt
+parse_input: ../predict_output3.txt
 parse_output: ../parse_output.txt

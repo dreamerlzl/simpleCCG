@@ -42,6 +42,8 @@ public class Agent {
 		double g = first.gcost + second.gcost;
 		double w = g + hcost(s, e);
 		AgentEntry x = new AgentEntry(s, e, c, w, g, first, second);
+//		System.out.println(first.toString());
+//		System.out.println(second.toString());
 //		System.out.println("new added entry:" + x);
 		entries.add(x);
 	}

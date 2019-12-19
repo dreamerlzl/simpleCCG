@@ -1,10 +1,11 @@
 package simpleCCG;
 
 import java.lang.Math;
+import java.util.Objects;
 
 public class AgentEntry implements Comparable<AgentEntry>{
 	public double weight, gcost;
-	public int start, end;
+	public int start, end, head;
 	private CCGCategory category;
 	private String text;
 	private AgentEntry left, right;
@@ -34,6 +35,7 @@ public class AgentEntry implements Comparable<AgentEntry>{
 	{
 		start = s; end = e; category = c; weight =w; text = t; gcost = g;
 		left = right = null;
+		head = e;
 	}
 	
 	public AgentEntry(AgentEntry ref, CCGCategory c)
@@ -45,6 +47,7 @@ public class AgentEntry implements Comparable<AgentEntry>{
 		gcost = ref.gcost;
 		left = ref.left;
 		right = ref.right;
+		head = ref.head;
 		category = c;
 	}
 	
@@ -53,6 +56,29 @@ public class AgentEntry implements Comparable<AgentEntry>{
 //	{
 //		start = s; end = e; category = c; weight =w; text = t;
 //	}
+	
+	@Override
+	public boolean equals (Object o)
+	{
+		if (o == this) return true;
+		if (!(o instanceof AgentEntry)) {
+            return false;
+        }
+		return (this.hashCode() == o.hashCode());
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		if(left == null && right == null)
+			return Objects.hash(start, end, category.hashCode(), 0, 0);
+		else if(left!=null && right!=null)
+			return Objects.hash(start, end, category.hashCode(), left.hashCode(), right.hashCode());
+		else if(left == null && right != null)
+			return Objects.hash(start, end, category.hashCode(), 0, right.hashCode());
+		else
+			return Objects.hash(start, end, category.hashCode(), left.hashCode(), 0);
+	}
 	
 	public int compareTo(AgentEntry o)
 	{
@@ -71,7 +97,12 @@ public class AgentEntry implements Comparable<AgentEntry>{
 	
 	public String toString()
 	{
-		return String.format("[%d, %d] %s %.3f %.3f", start, end, category.toString(), gcost, weight);
+		StringBuilder result = new StringBuilder(String.format("[%d, %d] %s %.3f %.3f", start, end, category.toString(), gcost, weight));
+		if (left != null)
+			result.append("\t").append(left.getCategory().toString());
+		if(right != null)
+			result.append("\t").append(right.getCategory().toString());
+		return result.toString();
 	}
 	
 	public static String repeat(String s, int times)

@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import yaml
 import sys
-from math import ceil
+from math import ceil, log
 from typing import Dict, List
 from torch.utils.data import DataLoader
 from suppertagger.model import BiLSTM, group_embeddings
@@ -49,6 +49,8 @@ def predict(config, sentences: List[List[str]]):
     topk = config['topk_predict']
     if config['method'] == 'bert':
         with open(config['predict_output'], 'w') as f:
+            threshold = float(config['tag_prob_threshold'])
+            threshold = -1 * log(threshold)
             batch_size = int(config['batch_size'])
             batch_num = ceil(len(sentences)/batch_size)
             for batch_count in range(batch_num):
@@ -71,7 +73,7 @@ def predict(config, sentences: List[List[str]]):
                 for i, l in enumerate(each_len):
                     f.write('\n'.join([f'{processed_sentences[i][j]}\t' + 
                         '\t'.join([f'{id2cat[index]}{split_symbol}{w}' 
-                        for index, w in zip(word2cat[k+j].tolist(), weight[k+j].tolist())])
+                        for index, w in zip(word2cat[k+j].tolist(), weight[k+j].tolist()) if w < threshold])
                         if j not in punct_positions[i] 
                         else f'{punct_positions[i][j]}\t{punct_positions[i][j]}{split_symbol}0.0'
                         for j in range(l)]) + '\n\n')
